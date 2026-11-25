@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrar — OLD_ARCADE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Mesmas variáveis de tema do portal ===== */
+:root{--bg:#0D0D0D;--card:#161616;--fg:#4AF626;--ac:#FFB000;--on-ac:#0D0D0D;
+--f:"IBM Plex Mono","Fira Code",ui-monospace,Consolas,monospace}
+:root:has(#tema:checked){--bg:#F8F9FA;--card:#FFFFFF;--fg:#0A4D1C;--ac:#005A9C;--on-ac:#FFFFFF}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:var(--bg);color:var(--fg);font:1rem/1.5 var(--f)}
+a{color:var(--fg)}
+h1{font-size:1.5rem;line-height:1.25;margin:0 0 .75rem}
+h1::before{content:"> ";color:var(--ac)}
+p{margin:0 0 .75rem}
+.wrap{max-width:70rem;margin:0 auto;padding:0 1rem;width:100%}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+:focus-visible{outline:3px solid var(--ac);outline-offset:3px;box-shadow:0 0 0 3px var(--bg)}
+a:focus-visible,.btn:focus-visible,.eye:focus-visible{background:var(--ac);color:var(--on-ac)}
+.skip{position:absolute;left:.5rem;top:-5rem;z-index:10;padding:.5rem 1rem;background:var(--ac);color:var(--on-ac);font-weight:700}
+.skip:focus{top:.5rem}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.5rem 1rem;border:2px solid var(--ac);
+background:transparent;color:var(--fg);font:inherit;font-weight:700;text-decoration:none;cursor:pointer}
+.btn:hover,.btn.p{background:var(--ac);color:var(--on-ac)}
+.btn.p:hover{background:transparent;color:var(--fg)}
+.btn:disabled{cursor:not-allowed;background:transparent;color:var(--fg);border-style:dashed}
+
+/* Cabeçalho */
+.site-header{background:var(--card);border-bottom:2px solid var(--ac)}
+.top{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;align-items:center;justify-content:space-between;padding:1rem 0}
+.logo{font-size:1.5rem;font-weight:700;text-decoration:none}
+.status{margin:0;color:var(--ac);font-weight:700}
+.bc{display:flex;flex-wrap:wrap;list-style:none;margin:0;padding:0 0 .75rem;color:var(--ac)}
+.bc li+li::before{content:"/";margin:0 .5rem}
+.bc a{color:var(--ac)}
+.toggle{position:relative}
+.toggle input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.toggle:has(input:focus-visible){outline:3px solid var(--fg);outline-offset:3px;box-shadow:0 0 0 3px var(--card)}
+.t-cla{display:none}
+:root:has(#tema:checked) .t-cla{display:inline}
+:root:has(#tema:checked) .t-esc{display:none}
+
+/* Cartão de login */
+main{flex:1;display:grid;place-items:center;padding:2rem 1rem}
+.card{width:100%;max-width:28rem;background:var(--card);border:2px solid var(--fg);padding:1.5rem}
+.art{margin:0 0 1rem;padding:.5rem 1rem;overflow:auto;background:var(--bg);border:2px solid var(--fg);font:inherit}
+.dica{margin:0 0 1rem}
+.campo{margin-bottom:1rem}
+.campo label{display:block;margin-bottom:.25rem;font-weight:700}
+.campo input[type=text],.campo input[type=password]{display:block;width:100%;min-height:44px;padding:.5rem;background:var(--bg);color:var(--fg);border:2px solid var(--fg);font:inherit}
+.campo ::placeholder{color:var(--fg);opacity:1;font-style:italic}
+.campo [aria-invalid=true]{border-style:dashed;border-color:var(--ac)}
+.erro{margin:.25rem 0 0;color:var(--ac);font-weight:700}
+.erro:empty,.aviso:empty{display:none}
+.senha{position:relative}
+.senha input{padding-right:3.5rem!important}
+.eye{position:absolute;top:0;right:0;display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;background:transparent;color:var(--fg);cursor:pointer}
+.eye[aria-pressed=true] .i-ver,.eye[aria-pressed=false] .i-oc{display:none}
+.linha{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.chk{display:flex;align-items:center;gap:.75rem;min-height:44px;cursor:pointer}
+.chk input{appearance:none;display:grid;place-items:center;width:1.5rem;height:1.5rem;margin:0;border:2px solid var(--fg);background:var(--bg);cursor:pointer}
+.chk input:checked{background:var(--ac);border-color:var(--ac)}
+.chk input:checked::after{content:"✓";color:var(--on-ac);font-weight:700;line-height:1}
+.linha a,.criar a{display:inline-block;padding:.5rem 0}
+.entrar{width:100%}
+.aviso{margin:1rem 0 0;padding:.5rem .75rem;border:2px solid var(--ac);font-weight:700}
+.aviso.erro-box{border-style:dashed}
+.criar{margin:1rem 0 0;text-align:center}
+
+.site-footer{padding:1.5rem 0;background:var(--card);border-top:2px solid var(--ac);text-align:center}
+.site-footer p{margin:0}
+</style>
+</head>
+<body>
+<a class="skip" href="#form-login">Pular para o formulário</a>
+
+<header class="site-header">
+ <div class="wrap">
+  <div class="top">
+   <a class="logo" href="old_arcade.html" aria-label="OLD_ARCADE, página inicial">OLD_ARCADE<span aria-hidden="true">_</span></a>
+   <p class="status" role="status">[SISTEMA: ONLINE]</p>
+   <label class="btn toggle">
+    <input type="checkbox" id="tema" role="switch">
+    <span class="t-esc">[☾] Modo escuro ativo — mudar para claro</span>
+    <span class="t-cla">[☀] Modo claro ativo — mudar para escuro</span>
+   </label>
+  </div>
+  <nav aria-label="Você está aqui">
+   <ol class="bc"><li><a href="old_arcade.html">~</a></li><li><a href="old_arcade.html">inicio</a></li><li><a href="#form-login" aria-current="page">login</a></li></ol>
+  </nav>
+ </div>
+</header>
+
+<main>
+ <section class="card" aria-labelledby="t-login">
+  <pre class="art" aria-hidden="true">[ AUTENTICACAO ]
+$ login --user_</pre>
+  <h1 id="t-login">Entrar na sua conta</h1>
+  <p class="dica">Para testar: usuário <strong>admin</strong> e senha <strong>arcade123</strong>.</p>
+
+  <form id="form-login" novalidate>
+   <div class="campo">
+    <label for="usuario">E-mail ou usuário</label>
+    <input type="text" id="usuario" name="usuario" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="ex.: nome@exemplo.com" aria-describedby="e-usuario" aria-invalid="false">
+    <p class="erro" id="e-usuario"></p>
+   </div>
+
+   <div class="campo">
+    <label for="senha">Senha</label>
+    <div class="senha">
+     <input type="password" id="senha" name="senha" autocomplete="current-password" placeholder="mínimo de 8 caracteres" aria-describedby="e-senha" aria-invalid="false">
+     <button type="button" class="eye" id="olho" aria-label="Mostrar senha" aria-controls="senha" aria-pressed="false">
+      <svg class="i-ver" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+      <svg class="i-oc" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/><path d="M3 3l18 18"/></svg>
+     </button>
+    </div>
+    <p class="erro" id="e-senha"></p>
+   </div>
+
+   <div class="linha">
+    <label class="chk"><input type="checkbox" id="lembrar" name="lembrar"> Lembrar de mim</label>
+    <a href="#">Esqueci minha senha</a>
+   </div>
+
+   <button type="submit" class="btn p entrar" id="entrar">Entrar</button>
+   <p class="aviso" id="resultado" role="status" aria-live="polite"></p>
+  </form>
+
+  <p class="criar">Novo por aqui? <a href="#">Criar conta</a></p>
+ </section>
+</main>
+
+<footer class="site-footer">
+ <div class="wrap"><p>© 2026 OLD_ARCADE. Todos os direitos reservados.</p></div>
+</footer>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const CHAVE_USUARIO = 'oldarcade:usuario', CHAVE_TEMA = 'oldarcade:tema';
+  const form = $('#form-login'), usuario = $('#usuario'), senha = $('#senha'),
+        lembrar = $('#lembrar'), botao = $('#entrar'), aviso = $('#resultado'),
+        tema = $('#tema'), olho = $('#olho');
+
+  // localStorage protegido: funciona mesmo se o navegador bloquear o armazenamento.
+  const ls = {
+    get: k => { try { return localStorage.getItem(k); } catch { return null; } },
+    set: (k, v) => { try { localStorage.setItem(k, v); } catch {} },
+    del: k => { try { localStorage.removeItem(k); } catch {} }
+  };
+
+  // ----- Validação -----
+  const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const regras = {
+    usuario(v) {
+      v = v.trim();
+      if (!v) return 'Informe seu e-mail ou usuário.';
+      if (v.includes('@')) return EMAIL.test(v) ? '' : 'Digite um e-mail válido, como nome@exemplo.com.';
+      return v.length >= 3 ? '' : 'O usuário precisa ter pelo menos 3 caracteres.';
+    },
+    senha(v) {
+      if (!v) return 'Informe sua senha.';
+      return v.length >= 8 ? '' : 'A senha precisa ter pelo menos 8 caracteres.';
+    }
+  };
+
+  function validar(campo) {
+    const msg = regras[campo.id](campo.value);
+    $('#e-' + campo.id).textContent = msg ? '[ERRO] ' + msg : '';
+    campo.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    return !msg;
+  }
+
+  // Valida ao sair do campo; depois disso, valida a cada tecla (tempo real).
+  [usuario, senha].forEach(campo => {
+    campo.addEventListener('blur', () => { campo.dataset.tocado = '1'; validar(campo); });
+    campo.addEventListener('input', () => { if (campo.dataset.tocado) validar(campo); });
+  });
+
+  // ----- Mostrar / ocultar senha -----
+  olho.addEventListener('click', () => {
+    const mostrar = senha.type === 'password';
+    senha.type = mostrar ? 'text' : 'password';
+    olho.setAttribute('aria-pressed', String(mostrar));
+    senha.focus();
+  });
+
+  // ----- Estado de carregamento e mensagens -----
+  function carregando(ativo) {
+    botao.disabled = ativo;
+    botao.setAttribute('aria-busy', String(ativo));
+    botao.textContent = ativo ? 'Entrando...' : 'Entrar';
+  }
+  function mostrar(tipo, texto) {
+    aviso.className = 'aviso' + (tipo === 'erro' ? ' erro-box' : '');
+    aviso.textContent = texto;
+  }
+
+  // ----- Envio (resposta simulada) -----
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    mostrar('ok', '');
+
+    const validos = [usuario, senha].map(validar);   // valida os dois campos
+    if (validos.includes(false)) {
+      [usuario, senha][validos.indexOf(false)].focus();
+      mostrar('erro', '[ERRO] Corrija os campos destacados.');
+      return;
+    }
+
+    // Lembrar de mim: guarda só o usuário/e-mail (nunca a senha).
+    if (lembrar.checked) ls.set(CHAVE_USUARIO, usuario.value.trim());
+    else ls.del(CHAVE_USUARIO);
+
+    carregando(true);
+    setTimeout(() => {
+      const nome = usuario.value.trim().toLowerCase();
+      const certo = (nome === 'admin' || nome === 'admin@oldarcade.com') && senha.value === 'arcade123';
+      carregando(false);
+      if (certo) {
+        mostrar('ok', '[OK] Acesso liberado. Redirecionando para o catálogo…');
+      } else {
+        mostrar('erro', '[ERRO] Usuário ou senha incorretos. Tente novamente.');
+        senha.value = '';
+        senha.focus();
+      }
+    }, 1500);
+  });
+
+  // ----- Preferências salvas -----
+  const salvo = ls.get(CHAVE_USUARIO);
+  if (salvo) { usuario.value = salvo; lembrar.checked = true; senha.focus(); }
+
+  tema.checked = ls.get(CHAVE_TEMA) === 'claro';
+  tema.addEventListener('change', () => ls.set(CHAVE_TEMA, tema.checked ? 'claro' : 'escuro'));
+})();
+</script>
+</body>
+</html>
