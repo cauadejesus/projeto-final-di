@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jogos — OLD_ARCADE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<header class="site-header"><div class="wrap">
+ <div class="top">
+  <a class="logo" href="index.html" aria-label="OLD_ARCADE, hub">OLD_ARCADE<span aria-hidden="true">_</span></a>
+  <p class="status" role="status">[SISTEMA: ONLINE]</p>
+  <label class="btn toggle"><input type="checkbox" id="tema" role="switch">
+   <span class="t-esc">[☾] Modo escuro ativo — mudar para claro</span><span class="t-cla">[☀] Modo claro ativo — mudar para escuro</span></label>
+ </div>
+ <nav aria-label="Você está aqui"><ol class="bc"><li><a href="index.html">~</a></li><li><a href="index.html">hub</a></li><li aria-current="page" id="crumb">jogo</li></ol></nav>
+</div></header>
+
+<main id="conteudo">
+ <section class="box"><h1 id="titulo">Programa</h1><p>Usuário: <strong id="usr"></strong></p></section>
+
+ <!-- JOGO 1: SENHA MESTRE -->
+ <section class="box jogo" id="g-senha" hidden aria-label="Senha Mestre">
+  <p>Descubra a senha de 4 dígitos únicos (0-9). Você tem 10 tentativas.</p>
+  <form id="f-senha" class="linha" novalidate>
+   <div class="campo"><label for="i-senha">Palpite (4 dígitos)</label><input id="i-senha" maxlength="4" inputmode="numeric" autocomplete="off" placeholder="ex.: 4815"></div>
+   <button class="btn p" type="submit">Enviar</button>
+  </form>
+  <p id="st-senha" role="status" style="margin:.75rem 0 0"></p>
+  <div class="log" id="lg-senha" role="log" aria-label="Log do terminal" tabindex="0"></div>
+ </section>
+
+ <!-- JOGO 2: MAIOR OU MENOR -->
+ <section class="box jogo" id="g-maior" hidden aria-label="Maior ou Menor">
+  <p>Adivinhe o número oculto entre 1 e 100. Você tem 7 tentativas.</p>
+  <form id="f-maior" class="linha" novalidate>
+   <div class="campo"><label for="i-maior">Palpite (1-100)</label><input id="i-maior" type="number" min="1" max="100" autocomplete="off" placeholder="ex.: 50"></div>
+   <button class="btn p" type="submit">Enviar</button>
+  </form>
+  <p id="st-maior" role="status" style="margin:.75rem 0 0"></p>
+  <div class="log" id="lg-maior" role="log" aria-label="Log do terminal" tabindex="0"></div>
+ </section>
+
+ <!-- JOGO 3: JOGO DA VELHA -->
+ <section class="box jogo" id="g-velha" hidden aria-label="Jogo da Velha">
+  <p>Você é [X]. A IA do terminal é [O].</p>
+  <div class="grade" id="grade-velha" style="grid-template-columns:repeat(3,auto)"></div>
+  <div class="log" id="lg-velha" role="log" aria-label="Log do terminal" tabindex="0"></div>
+ </section>
+
+ <!-- JOGO 4: BATALHA NAVAL -->
+ <section class="box jogo" id="g-naval" hidden aria-label="Batalha Naval">
+  <p>Radar 6x6, 3 navios ocultos, 15 mísseis. X = acerto, • = água.</p>
+  <p id="st-naval" role="status"></p>
+  <div class="grade" id="grade-naval"></div>
+  <div class="log" id="lg-naval" role="log" aria-label="Log do terminal" tabindex="0"></div>
+ </section>
+
+ <div class="linha">
+  <button class="btn p" id="reiniciar" type="button">[ REINICIAR ]</button>
+  <a class="btn" href="index.html">[ VOLTAR AO MENU ]</a>
+ </div>
+</main>
+
+<footer class="site-footer"><div class="wrap"><p>© 2026 OLD_ARCADE. Todos os direitos reservados.</p></div></footer>
+<script src="js/comum.js"></script>
+<script src="js/senha-mestre.js"></script>
+<script src="js/maior-menor.js"></script>
+<script src="js/jogo-da-velha.js"></script>
+<script src="js/batalha-naval.js"></script>
+<script src="js/jogos.js"></script>
+</body>
+</html>

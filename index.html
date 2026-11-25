@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OLD_ARCADE — Portal de jogos de terminal</title>
+<title>Hub — OLD_ARCADE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -114,12 +114,13 @@ form.card{max-width:40rem}
  <div class="wrap">
   <div class="top">
    <a class="logo" href="#inicio" aria-label="OLD_ARCADE, página inicial">OLD_ARCADE<span aria-hidden="true">_</span></a>
-   <p class="status" role="status">[SISTEMA: ONLINE]</p>
+   <p class="status" role="status">[SISTEMA: ONLINE] · Usuário: <span id="usr"></span></p>
    <label class="btn toggle">
     <input type="checkbox" id="tema" role="switch">
     <span class="t-esc">[☾] Modo escuro ativo — mudar para claro</span>
     <span class="t-cla">[☀] Modo claro ativo — mudar para escuro</span>
    </label>
+   <button class="btn" id="sair" type="button">Sair</button>
   </div>
   <nav aria-label="Principal">
    <ul class="menu">
@@ -143,47 +144,47 @@ form.card{max-width:40rem}
   <h2 id="t-dest">Em destaque</h2>
   <div class="car" role="group" aria-roledescription="carrossel" aria-label="Jogos em destaque">
    <div class="slide s1">
-    <pre class="art" aria-hidden="true">  ___
- /   \
-| o o |
- \_-_/
- /|_|\</pre>
-    <div>
-     <p>Destaque 1 de 3</p>
-     <h3>Cripta Binária</h3>
-     <p>RPG de masmorras em ASCII: explore salas, enfrente monstros e administre seu inventário usando só o teclado.</p>
-     <div class="ctrl"><label class="btn" for="s3" aria-hidden="true">‹ Anterior</label><label class="btn" for="s2" aria-hidden="true">Próximo ›</label><a class="btn p" href="#catalogo">Ver jogo</a></div>
-    </div>
-   </div>
-   <div class="slide s2">
     <pre class="art" aria-hidden="true">+---+---+
 | 4 | 8 |
 +---+---+
 | 1 | 5 |
 +---+---+</pre>
     <div>
-     <p>Destaque 2 de 3</p>
+     <p>Destaque 1 de 3</p>
      <h3>Senha Mestre</h3>
      <p>Quebre um código de 4 dígitos usando dedução. Cada palpite revela quantos números estão certos e quantos mudaram de lugar.</p>
-     <div class="ctrl"><label class="btn" for="s1" aria-hidden="true">‹ Anterior</label><label class="btn" for="s3" aria-hidden="true">Próximo ›</label><a class="btn p" href="#catalogo">Ver jogo</a></div>
+     <div class="ctrl"><label class="btn" for="s3" aria-hidden="true">‹ Anterior</label><label class="btn" for="s2" aria-hidden="true">Próximo ›</label><a class="btn p" href="jogos.html#senha">Jogar <span class="sr">Senha Mestre</span></a></div>
+    </div>
+   </div>
+   <div class="slide s2">
+    <pre class="art" aria-hidden="true">  1 2 3 4
+1 ~ ~ X ~
+2 ~ • X ~
+3 ~ ~ ~ ~</pre>
+    <div>
+     <p>Destaque 2 de 3</p>
+     <h3>Batalha Naval</h3>
+     <p>Procure 3 navios escondidos no radar 6x6 e afunde todos com 15 mísseis.</p>
+     <div class="ctrl"><label class="btn" for="s1" aria-hidden="true">‹ Anterior</label><label class="btn" for="s3" aria-hidden="true">Próximo ›</label><a class="btn p" href="jogos.html#naval">Jogar <span class="sr">Batalha Naval</span></a></div>
     </div>
    </div>
    <div class="slide s3">
-    <pre class="art" aria-hidden="true">.-----.
-| K ^ |
-|  v  |
-'-----'</pre>
+    <pre class="art" aria-hidden="true"> X | O | X
+---+---+---
+ O | X |  
+---+---+---
+   |   | O</pre>
     <div>
      <p>Destaque 3 de 3</p>
-     <h3>Maior ou Menor</h3>
-     <p>A próxima carta será maior ou menor? Acerte em sequência e tente superar o seu recorde.</p>
-     <div class="ctrl"><label class="btn" for="s2" aria-hidden="true">‹ Anterior</label><label class="btn" for="s1" aria-hidden="true">Próximo ›</label><a class="btn p" href="#catalogo">Ver jogo</a></div>
+     <h3>Jogo da Velha</h3>
+     <p>Enfrente a IA do terminal em uma partida clássica 3x3.</p>
+     <div class="ctrl"><label class="btn" for="s2" aria-hidden="true">‹ Anterior</label><label class="btn" for="s1" aria-hidden="true">Próximo ›</label><a class="btn p" href="jogos.html#velha">Jogar <span class="sr">Jogo da Velha</span></a></div>
     </div>
    </div>
    <div class="dots" role="radiogroup" aria-label="Escolher destaque">
-    <input type="radio" name="slide" id="s1" checked><label for="s1"><span aria-hidden="true">1</span><span class="sr">Destaque 1: Cripta Binária</span></label>
-    <input type="radio" name="slide" id="s2"><label for="s2"><span aria-hidden="true">2</span><span class="sr">Destaque 2: Senha Mestre</span></label>
-    <input type="radio" name="slide" id="s3"><label for="s3"><span aria-hidden="true">3</span><span class="sr">Destaque 3: Maior ou Menor</span></label>
+    <input type="radio" name="slide" id="s1" checked><label for="s1"><span aria-hidden="true">1</span><span class="sr">Destaque 1: Senha Mestre</span></label>
+    <input type="radio" name="slide" id="s2"><label for="s2"><span aria-hidden="true">2</span><span class="sr">Destaque 2: Batalha Naval</span></label>
+    <input type="radio" name="slide" id="s3"><label for="s3"><span aria-hidden="true">3</span><span class="sr">Destaque 3: Jogo da Velha</span></label>
    </div>
   </div>
  </section>
@@ -191,34 +192,34 @@ form.card{max-width:40rem}
  <!-- PESQUISA, ABAS E CATÁLOGO -->
  <section id="catalogo" aria-labelledby="t-cat">
   <h2 id="t-cat">Catálogo de jogos</h2>
-  <form class="prompt" role="search" action="#catalogo">
+  <form class="prompt" id="f-busca" role="search" action="#catalogo">
    <label for="q"><span aria-hidden="true">&gt;</span><span class="sr">Pesquisar jogo pelo nome</span></label>
    <input type="search" id="q" name="q" placeholder="pesquisar_jogo..." autocomplete="off">
    <button class="btn" type="submit">Pesquisar</button>
   </form>
   <div class="tabs" role="tablist" aria-label="Filtrar por categoria">
-   <button type="button" role="tab" id="tab-todos" aria-selected="true" aria-controls="lista">Todos</button>
-   <button type="button" role="tab" aria-selected="false" aria-controls="lista" tabindex="-1">RPG</button>
-   <button type="button" role="tab" aria-selected="false" aria-controls="lista" tabindex="-1">Puzzle</button>
-   <button type="button" role="tab" aria-selected="false" aria-controls="lista" tabindex="-1">Estratégia</button>
+   <button type="button" role="tab" data-cat="todos" aria-selected="true" aria-controls="lista">Todos</button>
+   <button type="button" role="tab" data-cat="puzzle" aria-selected="false" aria-controls="lista">Puzzle</button>
+   <button type="button" role="tab" data-cat="estrategia" aria-selected="false" aria-controls="lista">Estratégia</button>
   </div>
-  <ul class="grid" id="lista" role="tabpanel" aria-labelledby="tab-todos">
-   <li><article class="card">
-    <img alt="Ilustração de um herói em ASCII diante de uma porta de masmorra" width="160" height="90" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'%3E%3Crect width='160' height='90' fill='%230D0D0D'/%3E%3Ctext x='80' y='58' font-size='40' text-anchor='middle' fill='%234AF626' font-family='monospace'%3E@%3C/text%3E%3C/svg%3E">
-    <h3>Cripta Binária</h3><p><span class="tag">RPG</span><span class="tag">Aventura</span></p>
-    <a class="btn">Jogar <span class="sr">Cripta Binária</span></a></article></li>
-   <li><article class="card">
-    <img alt="Ilustração de duas peças de tabuleiro cruzadas em estilo terminal" width="160" height="90" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'%3E%3Crect width='160' height='90' fill='%230D0D0D'/%3E%3Ctext x='80' y='58' font-size='40' text-anchor='middle' fill='%234AF626' font-family='monospace'%3E+X+%3C/text%3E%3C/svg%3E">
-    <h3>Comando Tático</h3><p><span class="tag">Estratégia</span><span class="tag">Turnos</span></p>
-    <a class="btn">Jogar <span class="sr">Comando Tático</span></a></article></li>
-   <li><article class="card">
+  <p id="vazio" role="status" style="font-weight:700"></p>
+  <ul class="grid" id="lista" role="tabpanel" aria-label="Lista de jogos">
+   <li data-nome="Senha Mestre" data-cat="puzzle"><article class="card">
     <img alt="Ilustração de quatro dígitos escondidos atrás de asteriscos" width="160" height="90" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'%3E%3Crect width='160' height='90' fill='%230D0D0D'/%3E%3Ctext x='80' y='58' font-size='40' text-anchor='middle' fill='%234AF626' font-family='monospace'%3E****%3C/text%3E%3C/svg%3E">
     <h3>Senha Mestre</h3><p><span class="tag">Puzzle</span><span class="tag">Lógica</span></p>
-    <a class="btn">Jogar <span class="sr">Senha Mestre</span></a></article></li>
-   <li><article class="card">
-    <img alt="Ilustração de uma carta de baralho com as letras A e K" width="160" height="90" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'%3E%3Crect width='160' height='90' fill='%230D0D0D'/%3E%3Ctext x='80' y='58' font-size='40' text-anchor='middle' fill='%234AF626' font-family='monospace'%3EA/K%3C/text%3E%3C/svg%3E">
-    <h3>Maior ou Menor</h3><p><span class="tag">Cartas</span><span class="tag">Arcade</span></p>
-    <a class="btn">Jogar <span class="sr">Maior ou Menor</span></a></article></li>
+    <a class="btn p" href="jogos.html#senha">Jogar <span class="sr">Senha Mestre</span></a></article></li>
+   <li data-nome="Maior ou Menor" data-cat="puzzle"><article class="card">
+    <img alt="Ilustração do intervalo de 1 a 100 com o número oculto" width="160" height="90" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'%3E%3Crect width='160' height='90' fill='%230D0D0D'/%3E%3Ctext x='80' y='58' font-size='40' text-anchor='middle' fill='%234AF626' font-family='monospace'%3E1-100%3C/text%3E%3C/svg%3E">
+    <h3>Maior ou Menor</h3><p><span class="tag">Puzzle</span><span class="tag">Números</span></p>
+    <a class="btn p" href="jogos.html#maior">Jogar <span class="sr">Maior ou Menor</span></a></article></li>
+   <li data-nome="Jogo da Velha" data-cat="estrategia"><article class="card">
+    <img alt="Ilustração de um X e um O lado a lado, como no jogo da velha" width="160" height="90" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'%3E%3Crect width='160' height='90' fill='%230D0D0D'/%3E%3Ctext x='80' y='58' font-size='40' text-anchor='middle' fill='%234AF626' font-family='monospace'%3EX O%3C/text%3E%3C/svg%3E">
+    <h3>Jogo da Velha</h3><p><span class="tag">Estratégia</span><span class="tag">Clássico</span></p>
+    <a class="btn p" href="jogos.html#velha">Jogar <span class="sr">Jogo da Velha</span></a></article></li>
+   <li data-nome="Batalha Naval" data-cat="estrategia"><article class="card">
+    <img alt="Ilustração de ondas do mar com um acerto marcado por X" width="160" height="90" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'%3E%3Crect width='160' height='90' fill='%230D0D0D'/%3E%3Ctext x='80' y='58' font-size='40' text-anchor='middle' fill='%234AF626' font-family='monospace'%3E~X~%3C/text%3E%3C/svg%3E">
+    <h3>Batalha Naval</h3><p><span class="tag">Estratégia</span><span class="tag">Radar</span></p>
+    <a class="btn p" href="jogos.html#naval">Jogar <span class="sr">Batalha Naval</span></a></article></li>
   </ul>
  </section>
 
@@ -226,16 +227,16 @@ form.card{max-width:40rem}
  <section id="como-funciona" aria-labelledby="t-como">
   <h2 id="t-como">Como funciona</h2>
   <ol class="grid">
-   <li><article class="card"><p class="passo" aria-hidden="true">01</p><h3>1. Clique em jogar</h3><p>Escolha um jogo no catálogo e se divirta. Não há instalador nem cadastro obrigatório.</p></article></li>
-   <li><article class="card"><p class="passo" aria-hidden="true">02</p><h3>2. Rode como se fosse no seu terminal</h3><p>Abra o terminal do site. Tudo é controlado pelo teclado.</p></article></li>
-   <li><article class="card"><p class="passo" aria-hidden="true">03</p><h3>3. Jogue os jogos antigos</h3><p>Aproveite clássicos que podem ser jogados diretamente no navegador.</p></article></li>
+   <li><article class="card"><p class="passo" aria-hidden="true">01</p><h3>1. Entre na sua conta</h3><p>Faça login com seu usuário. Sua sessão e seu tema ficam guardados no navegador.</p></article></li>
+   <li><article class="card"><p class="passo" aria-hidden="true">02</p><h3>2. Escolha um jogo</h3><p>Use o catálogo, a busca ou os destaques e clique em Jogar. Tudo funciona pelo teclado.</p></article></li>
+   <li><article class="card"><p class="passo" aria-hidden="true">03</p><h3>3. Jogue no navegador</h3><p>Sem instalar nada: reinicie a partida quando quiser e volte ao menu a qualquer momento.</p></article></li>
   </ol>
  </section>
 
  <!-- CONTATO -->
  <section id="contato" aria-labelledby="t-contato">
   <h2 id="t-contato">Fale com a gente</h2>
-  <form class="card" action="#contato" method="post">
+  <form class="card" id="f-contato" action="#contato" method="post">
    <p class="dica">$ enviar_mensagem — campos com * são obrigatórios.</p>
    <div class="campo">
     <label for="nome">Seu nome *</label>
@@ -264,6 +265,7 @@ form.card{max-width:40rem}
     <p class="erro" id="e-msg">[ERRO] Escreva pelo menos 10 caracteres.</p>
    </div>
    <button class="btn p" type="submit">Enviar mensagem</button>
+   <p id="ok-contato" role="status" style="margin:1rem 0 0;font-weight:700"></p>
   </form>
  </section>
 
@@ -287,5 +289,7 @@ form.card{max-width:40rem}
   <p>© 2026 OLD_ARCADE. Todos os direitos reservados.</p>
  </div>
 </footer>
+<script src="js/comum.js"></script>
+<script src="js/hub.js"></script>
 </body>
 </html>
